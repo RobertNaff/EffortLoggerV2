@@ -1,7 +1,7 @@
-# EffortLoggerV2
-**We will add to this code as we go on**
-**Adedoyin Keshinro** Task: _NEW RISK-REDUCTION PROTOTYPE_
-**Evan Bradley** Task: Data Related Risks
-**Jinduo Li** Task: Security Related Risks
-**Pooja Nara** Task: _NEW RISK-REDUCTION PROTOTYPE_ 
-**Robert Naff** Task: _NEW RISK-REDUCTION PROTOTYPE_ + EffortLogger Mainline
+# EffortLoggerV2 <br />
+**We will add to this code as we go on** <br />
+**Adedoyin Keshinro** Task: _NEW RISK-REDUCTION PROTOTYPE_ <br />
+**Evan Bradley** Task: Data Related Risks <br />
+**Jinduo Li** Task: Security Related Risks <br />
+**Pooja Nara** Task: _NEW RISK-REDUCTION PROTOTYPE_  <br />
+**Robert Naff** Task: _NEW RISK-REDUCTION PROTOTYPE_ + EffortLogger Mainline <br />
