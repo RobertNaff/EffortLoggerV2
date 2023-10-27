@@ -2,6 +2,7 @@
 package application;
 
 import java.io.*;
+import java.security.NoSuchAlgorithmException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,23 +41,55 @@ public class UserLoginConfig extends Main{
 	//
 	String userName;
 	String passWord;
+	String hashUsername;
+	String hashPassword;
 	//
 	
+	//Create an object from the HashMaker class
+	//
+	HashMaker hashMaker = new HashMaker();
+	//
+	
+	public String getUsername() {
+		return usernameTextField.getText();
+	}
+	
+	public String getPassword() {
+		return passwordPasswordField.getText();
+	}
+	
+	public void getHashusername() {
+		try {
+			hashUsername = hashMaker.createMD5Hash(getUsername());
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void getHashpassword() {
+		try {
+			hashPassword = hashMaker.createMD5Hash(getPassword());
+		} catch(NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+	}
 	//assign action to when signinButton is pressed
 	//if either username or password empty, inform user
 	//if both username and password are valid, we will move to EffortLogger Console
 	//
 	public void signinButtonOnAction(ActionEvent e) {
 		
-		if(usernameTextField.getText().isBlank() == false && passwordPasswordField.getText().isBlank() == false) {
-			userName = usernameTextField.getText();
-			passWord = passwordPasswordField.getText();
+		if(getUsername().isBlank() == false && getPassword().isBlank() == false) {
+			userName = getUsername();
+			passWord = getUsername();
 			try {
+				getHashusername();
+				getHashpassword();
 				FileReader fr = new FileReader("login.txt");
 				BufferedReader br = new BufferedReader(fr);
 				String line;
 				while((line=br.readLine())!=null) {
-					if(line.equals(userName + ";" + passWord)){
+					if(line.equals(hashUsername + " ; " + hashPassword)){
 						setCheck(true);
 						
 						break;
@@ -85,10 +118,12 @@ public class UserLoginConfig extends Main{
 	//write new user information to text file
 	public void signupButtonOnAction(ActionEvent e) {
 		loginMessageLabel.setText("Please enter new user information");
-		if(usernameTextField.getText().isBlank() == false && passwordPasswordField.getText().isBlank() == false) {
+		if(getUsername().isBlank() == false && getPassword().isBlank() == false) {
 			try {
+				getHashusername();
+				getHashpassword();
 				FileWriter fw = new FileWriter("login.txt",true);
-				fw.write("\n" + usernameTextField.getText() + ";" + passwordPasswordField.getText() + "\n");
+				fw.write("\n" + hashUsername + " ; " + hashPassword + "\n");
 				fw.close();
 			}catch(Exception a){}
 			loginMessageLabel.setText("New user entered!");
