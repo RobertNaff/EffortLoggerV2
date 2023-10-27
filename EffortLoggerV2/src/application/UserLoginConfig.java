@@ -66,7 +66,7 @@ public class UserLoginConfig extends Main{
 			}catch(Exception a){}
 			if (check) {
 				loginMessageLabel.setText("login success!");
-				
+				usernameTextField.getScene().getWindow().hide();
 				newInterface();
 				setCheck(false);
 				
