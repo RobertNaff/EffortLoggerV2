@@ -7,11 +7,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 public class LoggerConfig extends Main{
 	
@@ -64,6 +69,13 @@ public class LoggerConfig extends Main{
 		ecBox.setItems(ecList);
 	}
 	//
+	
+	@FXML
+    Label nameTag;
+    public void displayUser(String username) {
+            nameTag.setText("Welcome to Logger Home, "+username);
+    }
+	
 	
 	//When Effort Category ChoiceBox is selected, display the Effort Category Aspect Choicebox with respective list
 	//
@@ -118,9 +130,31 @@ public class LoggerConfig extends Main{
 		informLabel.setText("End time is: " + endTime.toString());
 		try {
 			FileWriter fw = new FileWriter("LogFile.txt",true);
-			fw.write(usernameTextField.getText() + "'s Log: " + startTime.toString() + "->" + endTime.toString()+";"+projectBox.getSelectionModel().getSelectedItem()+";"+lcsBox.getSelectionModel().getSelectedItem()+";"+ecBox.getSelectionModel().getSelectedItem()+";"+ecAspectBox.getSelectionModel().getSelectedItem()+ "\n");
+			fw.write(nameTag.getText() + "'s Log: " + startTime.toString() + "->" + endTime.toString()+";"+projectBox.getSelectionModel().getSelectedItem()+";"+lcsBox.getSelectionModel().getSelectedItem()+";"+ecBox.getSelectionModel().getSelectedItem()+";"+ecAspectBox.getSelectionModel().getSelectedItem()+ "\n");
 			fw.close();
 		}catch(Exception a){}
 	}
 	//
+	
+	 @FXML
+     private Button logoutbutton;
+     @FXML
+     private AnchorPane scene2;
+     
+     Stage primaryStage;
+     
+     public void logout(ActionEvent event) {
+             
+             Alert alert = new Alert(AlertType.CONFIRMATION);
+             alert.setTitle("Logout");
+             alert.setHeaderText("Are you sure of logging out?");
+             alert.setContentText("Save before exiting?: ");
+             
+             if(alert.showAndWait().get() == ButtonType.OK){
+                     primaryStage = (Stage) scene2.getScene().getWindow();
+                     System.out.println("You have logged out!");
+                     primaryStage.close();
+             }
+             
+     }
 }

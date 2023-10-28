@@ -6,6 +6,8 @@ import java.security.NoSuchAlgorithmException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Button;
@@ -43,6 +45,10 @@ public class UserLoginConfig extends Main{
 	String passWord;
 	String hashUsername;
 	String hashPassword;
+	final int maxChars = 5;
+    final String restrict = "^[a-zA-Z0-9]$";
+    
+    final int maxChar = 8;
 	//
 	
 	//Create an object from the HashMaker class
@@ -91,7 +97,6 @@ public class UserLoginConfig extends Main{
 				while((line=br.readLine())!=null) {
 					if(line.equals(hashUsername + " ; " + hashPassword)){
 						setCheck(true);
-						
 						break;
 					}
 				}
@@ -102,7 +107,6 @@ public class UserLoginConfig extends Main{
 				usernameTextField.getScene().getWindow().hide();
 				newInterface();
 				setCheck(false);
-				
 			}
 			else {
 				loginMessageLabel.setText("Please enter a valid user");
@@ -119,6 +123,11 @@ public class UserLoginConfig extends Main{
 	public void signupButtonOnAction(ActionEvent e) {
 		loginMessageLabel.setText("Please enter new user information");
 		if(getUsername().isBlank() == false && getPassword().isBlank() == false) {
+			  if (usernameTextField.getText().length()<maxChars || usernameTextField.getText().matches(restrict)) {
+                  loginMessageLabel.setText("Username length must be at least 5");
+        }else if (passwordPasswordField.getText().length()<maxChar || passwordPasswordField.getText().matches(restrict)) {
+                  loginMessageLabel.setText("Password length must be at least 8");
+             }else {
 			try {
 				getHashusername();
 				getHashpassword();
@@ -127,6 +136,7 @@ public class UserLoginConfig extends Main{
 				fw.close();
 			}catch(Exception a){}
 			loginMessageLabel.setText("New user entered!");
+		}
 		}
 		else {
 			loginMessageLabel.setText("Please enter login information");
