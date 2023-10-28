@@ -52,6 +52,8 @@ public class LoggerConfig extends Main{
 	private TextField usernameTextField;
 	@FXML 
 	private TextField passwordTextField;
+	@FXML
+	public Button logEditorButton;
 	//
 	
 	//Clock variables
@@ -119,6 +121,11 @@ public class LoggerConfig extends Main{
 		informLabel.setText("Start time is: " + startTime.toString());
 	}
 	//
+	
+	//when the "Effort Log Editor" button is pressed, opens a new tab to the log editor window
+	public void logEditorButtonOnAction(ActionEvent e) {
+		logEditorInterface();
+	}
 	
 	//When "Stop this Activity" is clicked, record present time
 	//Write the log's details towards the respective user

@@ -74,7 +74,23 @@ public class Main extends Application {
     primaryStage.close();
         }
         
-}
+	}
+	
+	public void logEditorInterface() {
+		try {
+			Stage logEditorStage = new Stage();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/LogEditor.fxml"));
+			root = loader.load();
+			LogEditor logEditor = loader.getController();
+			logEditor.setUserName("Example");
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			logEditorStage.setScene(scene);
+			logEditorStage.show();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}	
 	
 	public void tutorialInterface() {
 		try {

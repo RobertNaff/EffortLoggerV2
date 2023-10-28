@@ -1,4 +1,10 @@
-module EffortLoggerV2 {
+/**
+ * 
+ */
+/**
+ * 
+ */
+module EffortLoggerV2New {
 	requires javafx.controls;
 	requires javafx.graphics;
 	requires javafx.fxml;

@@ -1,2 +1,8 @@
-ak's Log: 00:52:56.655929300->00:53:14.852249700;Development Project;Drafting;Deliverables;Test Cases
-Welcome to Logger Home, 12345's Log: 21:20:39.416853800->21:20:45.399960800;null;null;null;null
+Welcome to Logger Home, teeth's Log: 19:23:46.620925100->19:23:59.404197200;Development Project;Outlining;Deliverables;Report
+Welcome to Logger Home, teeth's Log: 22:31:24.432709200->22:31:28.890296500;null;null;null;null
+Welcome to Logger Home, teeth's Log: 23:02:27.586414800->23:02:28.311550700;null;null;null;null
+Welcome to Logger Home, qwert's Log: 00:27:50.741406200->00:27:52.210908100;null;null;null;null
+Example's Log: 3->3;Business Project;null;null;null
+Welcome to Logger Home, qwert's Log: 00:52:25.923901600->00:52:34.315552900;Development Project;Information Gathering;Interruptions;Other
+Welcome to Logger Home, qwert's Log: 01:21:28.717851800->01:21:40.800440900;Business Project;Information Understanding;Deliverables;Draft
+Welcome to Logger Home, qwert's Log: 02:53:33.764021500->02:53:35.773530300;null;null;null;null
