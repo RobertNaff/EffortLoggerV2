@@ -105,7 +105,7 @@ public class UserLoginConfig extends Main{
 			if (check) {
 				loginMessageLabel.setText("login success!");
 				usernameTextField.getScene().getWindow().hide();
-				newInterface();
+				privacyConsent();
 				setCheck(false);
 			}
 			else {
