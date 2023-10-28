@@ -42,8 +42,22 @@ public class Main extends Application {
 	            logout(primaryStage);        
 	        });
 	    }
-	
-	
+	 
+	 //I changed the initialization of the EL Console to match the MainScene function
+	 //so that I could call it after the Privacy Consent screen without an exception
+	public void initializeConsole(Stage primaryStage) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/Logger.fxml"));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+        primaryStage.setTitle("EffortLogger Console");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        primaryStage.setOnCloseRequest(event -> {
+            event.consume();
+            logout(primaryStage);        
+        });
+	}
 	
 	//EffortLogger Console
 	//
@@ -71,7 +85,7 @@ public class Main extends Application {
         
         if (alert.showAndWait().get() == ButtonType.OK){
                 System.out.println("You have logged out");
-    primaryStage.close();
+                primaryStage.close();
         }
         
 	}
@@ -106,6 +120,29 @@ public class Main extends Application {
 		}
 	
 	}
+	
+	public void privacyConsent() {
+		try {
+			Stage primaryStage = new Stage();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/PrivacyConsent.fxml"));
+			root=loader.load();        		
+            Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.show();
+			//logout if they exit
+	        primaryStage.setOnCloseRequest(event -> {
+	            event.consume();
+	            logout(primaryStage);        
+	        });
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
+	}
+	
+	
+
 	
 	public static void handle(String[] args) {
 		launch(args);
