@@ -1,0 +1,2 @@
+ak's Log: 00:52:56.655929300->00:53:14.852249700;Development Project;Drafting;Deliverables;Test Cases
+Welcome to Logger Home, 12345's Log: 21:20:39.416853800->21:20:45.399960800;null;null;null;null

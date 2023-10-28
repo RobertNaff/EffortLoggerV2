@@ -142,5 +142,13 @@ public class UserLoginConfig extends Main{
 			loginMessageLabel.setText("Please enter login information");
 		}
 	}
+	
+	
+	
+	public void tutorialButtonOnAction(ActionEvent e) {
+		
+		usernameTextField.getScene().getWindow().hide();
+		tutorialInterface();
+	}
 	//
 }

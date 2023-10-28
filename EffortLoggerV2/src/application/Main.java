@@ -22,23 +22,28 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			//Load in user login/signup page to verify valid user
-			Parent root = FXMLLoader.load(getClass().getResource("/UserLogin.fxml"));
-			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-            primaryStage.setTitle("EffortLogger Application");
-			primaryStage.setScene(scene);
-			primaryStage.show();
-			
-			primaryStage.setOnCloseRequest(event -> {
-                event.consume();
-                logout(primaryStage);        
-        });
-		} 
-		catch(Exception e){
-			e.printStackTrace();
-		}
+            initializeMainScene(primaryStage);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
 	}
+	
+	 public void initializeMainScene(Stage primaryStage) throws IOException { //changed this so that I could call the main screen faster and easier
+	        //Load in user login/signup page to verify valid user
+	        Parent root = FXMLLoader.load(getClass().getResource("/UserLogin.fxml"));
+	        Scene scene = new Scene(root);
+	        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+	        primaryStage.setTitle("EffortLogger Application");
+	        primaryStage.setScene(scene);
+	        primaryStage.show();
+
+	        primaryStage.setOnCloseRequest(event -> {
+	            event.consume();
+	            logout(primaryStage);        
+	        });
+	    }
+	
+	
 	
 	//EffortLogger Console
 	//
@@ -70,6 +75,21 @@ public class Main extends Application {
         }
         
 }
+	
+	public void tutorialInterface() {
+		try {
+			Stage primaryStage = new Stage();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Tutorial.fxml"));
+			root=loader.load();        		
+            Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
+	}
 	
 	public static void handle(String[] args) {
 		launch(args);
