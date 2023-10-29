@@ -87,6 +87,8 @@ public class PrivacyConsent extends Main {
 	{
 		if(check.isSelected())
 			agree = true;
+		else
+			agree = false;
 	}
 	
 
