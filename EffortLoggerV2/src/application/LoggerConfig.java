@@ -137,7 +137,7 @@ public class LoggerConfig extends Main{
 		informLabel.setText("End time is: " + endTime.toString());
 		try {
 			FileWriter fw = new FileWriter("LogFile.txt",true);
-			fw.write(nameTag.getText() + "'s Log: " + startTime.toString() + "->" + endTime.toString()+";"+projectBox.getSelectionModel().getSelectedItem()+";"+lcsBox.getSelectionModel().getSelectedItem()+";"+ecBox.getSelectionModel().getSelectedItem()+";"+ecAspectBox.getSelectionModel().getSelectedItem()+ "\n");
+			fw.write(nameTag.getText() + "'s Log: " + startTime.toString() + "->" + endTime.toString()+";"+projectBox.getSelectionModel().getSelectedItem()+";"+lcsBox.getSelectionModel().getSelectedItem()+";"+ecBox.getSelectionModel().getSelectedItem()+";"+ecAspectBox.getSelectionModel().getSelectedItem()+"Accessible:Yes\n");
 			fw.close();
 		}catch(Exception a){}
 	}

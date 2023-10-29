@@ -68,6 +68,8 @@ public class LogEditor extends Main {
 	public Button consoleButton;
 	
 	private String username;
+	private String currentLog; //log that is being edited
+	private String tempLog;
 	
 	@FXML
 	public void initialize() {
@@ -77,6 +79,7 @@ public class LogEditor extends Main {
 		logList = FXCollections.observableArrayList();
 	}
 	
+	//activates on selecting an option in the effort category. determines the text in 
 	public void effortCategoryBoxOnAction(ActionEvent e) {
 		switch (effortCategoryBox.getSelectionModel().getSelectedItem()) {
 		case "Plans":
@@ -141,6 +144,84 @@ public class LogEditor extends Main {
 		}
 	}
 	
+	public void selectLogBoxOnAction() {
+		if(selectLogBox.getSelectionModel().getSelectedItem() == null) {
+			return;
+		}
+		
+		if(selectLogBox.getSelectionModel().getSelectedItem().equals(currentLog)) {
+			return;
+		}
+		
+		if(!selectLogBox.getSelectionModel().getSelectedItem().contains("Accessible:Yes")) {
+			selectLogBox.setValue(currentLog);
+			Alert editAlert = new Alert(AlertType.ERROR);
+			editAlert.setTitle("Edit Error");
+			editAlert.setHeaderText("Cannot edit log at this time");
+            editAlert.setContentText("Another user is currently editing this log");
+            editAlert.showAndWait();
+            
+		}else {
+			try {
+				this.tempLog = currentLog;
+				
+				//Reads the log file
+				FileReader fr = new FileReader("LogFile.txt");
+				BufferedReader br = new BufferedReader(fr);
+				
+				//string that stores the new file
+				StringBuffer newFileString = new StringBuffer();
+				
+				String line = br.readLine(); //current line in the file
+				//loops till the end of the file
+				while (line!=null) {
+					//checks to see if the current line is the same as the current/previously edited log
+					//if it is not the same, then the file string buffer will skip
+					//if it is, then the line is replaced by it and its accessibility is changed, and continued
+					
+					if(this.tempLog!=null) {
+						if(line.equals(tempLog)) {
+							tempLog = tempLog.replace("Accessible:No", "Accessible:Yes");
+							newFileString.append(tempLog + "\n");
+							line = br.readLine();
+							continue;
+						}
+					}
+					
+					//checks to see if the current line is the same as the one selected in the box
+					//if it is not the same, then the file string buffer storing the new file appends the next line in the file
+					//if it is, then the line is replaced by the same line but with changed accessibility
+					if(line.equals(selectLogBox.getSelectionModel().getSelectedItem())){
+						line = line.replace("Accessible:Yes", "Accessible:No");
+						currentLog = line;
+						newFileString.append(line + "\n");
+					}else {
+						newFileString.append(line + "\n");
+					}
+					
+					line = br.readLine(); //next line
+				}
+				
+				//closes file stream
+				br.close();
+				fr.close();
+				
+				//write file stream
+				FileWriter fw = new FileWriter("LogFile.txt",false);
+				fw.write(newFileString.toString()); //replaces the current file with the new one
+				
+				fw.close(); //closes file stream
+			}catch(Exception r) {
+				
+			}
+			
+			
+			System.out.println(currentLog);
+			projectBoxOnAction();
+			selectLogBox.setValue(currentLog);
+		}
+	}
+	
 	//updates the log based on the text fields in 3.a
 	public void updateButtonOnAction(ActionEvent e) {
 		//if the log choice box is not null then the method executes
@@ -161,13 +242,17 @@ public class LogEditor extends Main {
 					//if it is not the same, then the file string buffer storing the new file appends the next line in the file
 					//if it is, then the line is replaced by recording all the fields that will be changed
 					if(line.equals(selectLogBox.getSelectionModel().getSelectedItem())){
-						newFileString.append(this.username + "'s Log: " 
+						String updatedLog = this.username + "'s Log: " 
 								+ startTimeTextBox.getText() + "->"
 								+ stopTimeTextBox.getText() + ";"
 								+ projectBox.getSelectionModel().getSelectedItem() + ";"
 								+ lifeCycleBox.getSelectionModel().getSelectedItem() + ";"
 								+ effortCategoryBox.getSelectionModel().getSelectedItem() + ";"
-								+ effortCategoryAspectBox.getSelectionModel().getSelectedItem() + "\n");	
+								+ effortCategoryAspectBox.getSelectionModel().getSelectedItem() + ";"
+								+ "Accessible:Yes";
+						newFileString.append(updatedLog + "\n");
+						currentLog = updatedLog;
+							
 					}else {
 						newFileString.append(line + "\n");
 					}
@@ -196,6 +281,7 @@ public class LogEditor extends Main {
 		//if the log choice box is not null then the method executes
 				if(selectLogBox.getSelectionModel().getSelectedItem() != null) {
 					try {
+						this.currentLog = null;
 						//Reads the log file
 						FileReader fr = new FileReader("LogFile.txt");
 						BufferedReader br = new BufferedReader(fr);
@@ -257,10 +343,55 @@ public class LogEditor extends Main {
             }
 		}
 		
+		try {			
+			tempLog = currentLog;
+			//Reads the log file
+			FileReader fr = new FileReader("LogFile.txt");
+			BufferedReader br = new BufferedReader(fr);
+			
+			//string that stores the new file
+			StringBuffer newFileString = new StringBuffer();
+			
+			String line = br.readLine(); //current line in the file
+			//loops till the end of the file
+			while (line!=null) {
+
+				if(tempLog == null) {
+					break;
+				}
+				
+				if(line.equals(tempLog)){
+					tempLog = tempLog.replace("Accessible:No", "Accessible:Yes");
+					newFileString.append(tempLog + "\n");
+				}else {
+					newFileString.append(line + "\n");
+				}
+				
+				line = br.readLine(); //next line
+			}
+			
+			//closes file stream
+			br.close();
+			fr.close();
+			
+			if(tempLog!= null) {
+				FileWriter fw = new FileWriter("LogFile.txt",false);
+				fw.write(newFileString.toString()); //replaces the current file with the new one
+				fw.close(); //closes file stream
+			}
+			
+	
+		}catch(Exception r) {
+			
+		}
+		
     	consoleButton.getScene().getWindow().hide();
 
 	}
 	
+	public void clearLogButtonOnAction(ActionEvent e) {
+		
+	}
 	
 	public void setUserName(String newUserName) {
 		this.username = newUserName;
