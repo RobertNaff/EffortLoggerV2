@@ -66,8 +66,8 @@ public class Main extends Application {
 			Stage primaryStage = new Stage();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Logger.fxml"));
             root=loader.load();        
-            LoggerConfig loggerConfig = loader.getController();        
-            loggerConfig.displayUser(usernameTextField.getText());			
+            //LoggerConfig loggerConfig = loader.getController();        
+            //loggerConfig.displayUser(usernameTextField.getText());			
             Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -104,7 +104,22 @@ public class Main extends Application {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
-	}	
+	}
+
+	public void planningpokerInterface() {
+		try {
+			Stage pokerStage = new Stage();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/PlanningPoker.fxml"));
+			root = loader.load();
+			
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			pokerStage.setScene(scene);
+			pokerStage.show();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public void tutorialInterface() {
 		try {
