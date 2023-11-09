@@ -28,6 +28,7 @@
             <Label fx:id="nameTag" layoutX="18.0" layoutY="56.0" prefHeight="25.0" prefWidth="253.0" text="Welcome to Logger Home," />
             <Button fx:id="logoutbutton" layoutX="497.0" layoutY="359.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
             <Button fx:id="logEditorButton" layoutX="19.0" layoutY="359.0" mnemonicParsing="false" onAction="#logEditorButtonOnAction" prefHeight="25.0" prefWidth="141.0" text="Effort Log Editor" />
+             <Button fx:id="planningpokerButton" layoutX="329.0" layoutY="359.0" mnemonicParsing="false" onAction="#planningpokeraction" prefHeight="26.0" prefWidth="124.0" text="Planning Poker" />
          </children>
       </AnchorPane>
    </children>
