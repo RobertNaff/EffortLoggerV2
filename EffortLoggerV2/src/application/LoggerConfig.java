@@ -54,7 +54,8 @@ public class LoggerConfig extends Main{
 	private TextField passwordTextField;
 	@FXML
 	public Button logEditorButton;
-	//
+	@FXML
+	public Button planningpokerButton;
 	
 	//Clock variables
 	//
@@ -126,6 +127,13 @@ public class LoggerConfig extends Main{
 	public void logEditorButtonOnAction(ActionEvent e) {
 		logEditorInterface();
 	}
+
+	//when the "Planning poker" button is pressed, opens planning poker window
+	public void planningpokeraction(ActionEvent e) {
+		planningpokerButton.getScene().getWindow().hide();
+		planningpokerInterface();
+	}
+
 	
 	//When "Stop this Activity" is clicked, record present time
 	//Write the log's details towards the respective user
