@@ -47,7 +47,7 @@
          </font>
       </Label>
       <Label fx:id="estimateLabel" layoutX="145.0" layoutY="430.0" prefHeight="17.0" prefWidth="82.0" text="Estimate: " textFill="RED" />
-      <Label layoutX="241.0" layoutY="400.0" prefHeight="17.0" prefWidth="82.0" text="9. Adjust(+/-):" />
-      <TextField fx:id="adjustTextField" layoutX="261.0" layoutY="426.0" prefHeight="25.0" prefWidth="43.0" />
+      <Label layoutX="226.0" layoutY="430.0" prefHeight="17.0" prefWidth="65.0" text="Adjust(+/-): " />
+      <TextField fx:id="adjustTextField" layoutX="300.0" layoutY="426.0" prefHeight="25.0" prefWidth="43.0" />
    </children>
 </AnchorPane>

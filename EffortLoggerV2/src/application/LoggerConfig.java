@@ -56,6 +56,8 @@ public class LoggerConfig extends Main{
 	public Button logEditorButton;
 	@FXML
 	public Button planningpokerButton;
+	@FXML
+	private TextField storyPointsTextField;
 	
 	//Clock variables
 	//
@@ -72,6 +74,11 @@ public class LoggerConfig extends Main{
 		ecBox.setItems(ecList);
 	}
 	//
+	
+	public String getStoryPoints() {
+		return storyPointsTextField.getText();
+	}
+	
 	
 	@FXML
     Label nameTag;
@@ -145,7 +152,11 @@ public class LoggerConfig extends Main{
 		informLabel.setText("End time is: " + endTime.toString());
 		try {
 			FileWriter fw = new FileWriter("LogFile.txt",true);
-			fw.write(nameTag.getText() + "'s Log: " + startTime.toString() + "->" + endTime.toString()+";"+projectBox.getSelectionModel().getSelectedItem()+";"+lcsBox.getSelectionModel().getSelectedItem()+";"+ecBox.getSelectionModel().getSelectedItem()+";"+ecAspectBox.getSelectionModel().getSelectedItem()+"Accessible:Yes\n");
+			fw.write(nameTag.getText() + "'s Log: " + startTime.toString() + "->" + 
+					endTime.toString()+";"+projectBox.getSelectionModel().getSelectedItem()+
+					";"+lcsBox.getSelectionModel().getSelectedItem()+";"+
+					ecBox.getSelectionModel().getSelectedItem()+";"+
+					ecAspectBox.getSelectionModel().getSelectedItem()+ ";" + getStoryPoints() + ";" + "Accessible:Yes\n");
 			fw.close();
 		}catch(Exception a){}
 	}

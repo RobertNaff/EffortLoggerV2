@@ -121,6 +121,7 @@ public class Main extends Application {
 		}
 	}
 	
+	
 	public void tutorialInterface() {
 		try {
 			Stage primaryStage = new Stage();
