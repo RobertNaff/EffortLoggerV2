@@ -4,3 +4,4 @@ Example's Log: ->;Development Project;null;null;null;Accessible:Yes
 Welcome to Logger Home,'s Log: 18:09:51.296241800->18:09:51.970797100;Development Project;Information Gathering;Defects;-Defect Information-Accessible:Yes
 Welcome to Logger Home,'s Log: 18:25:48.711716200->18:25:49.488888;Business Project;Information Understanding;Interruptions;VisitorAccessible:Yes
 Example's Log: ->;Business Project;null;null;null;Accessible:Yes
+Welcome to Logger Home,'s Log: 13:40:32.587528400->13:40:49.192421100;Business Project;Information Gathering;Plans;Detailed Design Plan;4;Accessible:Yes

@@ -88,7 +88,7 @@ public class LoggerConfig extends Main{
 	
 	
 	//When Effort Category ChoiceBox is selected, display the Effort Category Aspect Choicebox with respective list
-	//
+	//n
 	public void ecBoxOnAction(ActionEvent e) {
 		switch (ecBox.getSelectionModel().getSelectedItem()) {
 		case "Plans":

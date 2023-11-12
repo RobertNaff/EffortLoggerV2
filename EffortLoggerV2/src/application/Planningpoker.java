@@ -51,6 +51,8 @@ public class Planningpoker extends Main{
 	private Label estimateLabel;
 	@FXML
 	public Button importdatabutton;
+	@FXML
+	public Button updateLogButton;
 		
 	int[] storyPoint = null;	
 	
@@ -62,6 +64,8 @@ public class Planningpoker extends Main{
 		return attributeSaveTextField.getText();
 	}
 	
+	
+	
 	public void backtoconsoleaction(ActionEvent e) throws IOException {
 		
 		newInterface();
@@ -70,7 +74,7 @@ public class Planningpoker extends Main{
 	
 	//when import button trigged, it shows the previous content 
 	//then with or without modified,the content will be store into the new file for the new project
-	public void importdataAction(ActionEvent e) throws IOException {
+	public void importdatabuttonOnAction(ActionEvent e) throws IOException {
 		TextArea tarea=new TextArea();
 		double height=400;
 		double width=1000;
@@ -115,13 +119,13 @@ public class Planningpoker extends Main{
 	}
 	
 	public void requestButtonOnAction(ActionEvent e) {
-		
+		estimateLabel.setTextFill(Color.rgb(34, 224, 28, 1));
 		String keyWords = getKeyword();
 		List<String> keywordList = Arrays.asList(keyWords.split(", "));
 		int sum = 0;
 		int count = 0;
 		try {
-			FileReader fr = new FileReader("logFile.txt");
+			FileReader fr = new FileReader("LogFile.txt");
 			BufferedReader br = new BufferedReader(fr);
 			String line;
 			while((line=br.readLine())!=null) {
@@ -134,10 +138,28 @@ public class Planningpoker extends Main{
 					}
 				}
 			}
-			estimateLabel.setTextFill(Color.rgb(34, 224, 28, 1));
 			estimateLabel.setText("Estimate: " + sum/count);
 			keywordList = null;
 			fr.close();
 		}catch(Exception a){}
-	}	
+	}
+	
+	public void updateLogButtonOnAction(ActionEvent e) {
+		
+		try {
+			BufferedWriter lg = new BufferedWriter(new FileWriter("PlanningPokerLog.txt", true));
+			lg.write(projectname.getText() + ";" + " As a " + as.getText() 
+			+ ", I want " + want.getText() 
+			+ ", so that " + so.getText() + "; " + getKeyword() + "; " + adjustTextField.getText() + "; " + estimateLabel.getText() +  "\n");
+			
+			lg.close();
+			
+		} catch (IOException e1) {
+            e1.printStackTrace();
+        }
+		
+		
+	}
+	
+	
 }
