@@ -2,6 +2,7 @@ package application;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -52,9 +53,21 @@ public class Planningpoker extends Main{
 	@FXML
 	public Button importdatabutton;
 	@FXML
-	public Button updateLogButton;
+	public Button clearButton;
+	@FXML
+	public Button displayButton;
+	@FXML
+	public Button deleteButton;
+	@FXML
+	public Button updateButton;
+	
 		
-	int[] storyPoint = null;	
+	int[] storyPoint = null;
+	//High or low estimate
+	String estimate = "LOW"; 
+	
+	
+	
 	
 	public  String getKeyword() {
 		return keyword.getText();
@@ -63,18 +76,41 @@ public class Planningpoker extends Main{
 	public String getAttributeSaveTextField() {
 		return attributeSaveTextField.getText();
 	}
-	
-	
+	public void resetAttributeTextField() //reset "attributes have been saved" 
+	{
+		attributeSaveTextField.setStyle("-fx-text-fill: black; -fx-font-size: 12px;"); 
+	}
 	
 	public void backtoconsoleaction(ActionEvent e) throws IOException {
 		
 		newInterface();
 		backtoconsole.getScene().getWindow().hide();
 	}
+	//returns the number of user story logs currently recorded
+	public int logCount()
+	{
+		int count = 0;
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("PlanningPokerLog.txt"));
+			String ln = br.readLine();
+			while(ln != null)
+			{
+				count ++;
+				ln = br.readLine();
+			}
+            br.close();
+		}
+		catch (IOException e2)
+		{
+			e2.printStackTrace();
+		}
+		return count;
+	}
 	
 	//when import button trigged, it shows the previous content 
 	//then with or without modified,the content will be store into the new file for the new project
-	public void importdatabuttonOnAction(ActionEvent e) throws IOException {
+	public void importdataAction(ActionEvent e) throws IOException {
+		resetAttributeTextField();
 		TextArea tarea=new TextArea();
 		double height=400;
 		double width=1000;
@@ -119,13 +155,13 @@ public class Planningpoker extends Main{
 	}
 	
 	public void requestButtonOnAction(ActionEvent e) {
-		estimateLabel.setTextFill(Color.rgb(34, 224, 28, 1));
+		resetAttributeTextField();
 		String keyWords = getKeyword();
 		List<String> keywordList = Arrays.asList(keyWords.split(", "));
 		int sum = 0;
 		int count = 0;
 		try {
-			FileReader fr = new FileReader("LogFile.txt");
+			FileReader fr = new FileReader("logFile.txt");
 			BufferedReader br = new BufferedReader(fr);
 			String line;
 			while((line=br.readLine())!=null) {
@@ -138,12 +174,101 @@ public class Planningpoker extends Main{
 					}
 				}
 			}
+			estimateLabel.setTextFill(Color.rgb(34, 224, 28, 1));
 			estimateLabel.setText("Estimate: " + sum/count);
+			
 			keywordList = null;
 			fr.close();
 		}catch(Exception a){}
 	}
 	
+	//clears data entry during planning poker session
+	//clear all text fields in scene
+	public void clearButtonOnAction(ActionEvent e)
+	{
+		resetAttributeTextField();
+		projectname.clear();
+		as.clear();
+		want.clear();
+		so.clear();
+		keyword.clear();
+		note.clear();
+		adjustTextField.clear();
+	}
+	//display data
+	//display imported data with estimates attached
+	public void displayButtonOnAction(ActionEvent e) throws IOException
+	{
+		resetAttributeTextField();
+		TextArea display = new TextArea();
+		display.setEditable(false);
+		display.setPrefHeight(400);
+		display.setPrefWidth(1000);
+		display.setWrapText(true);
+		display.setFont(Font.font(12));
+		
+		FlowPane pane = new FlowPane();
+		pane.getChildren().add(display);
+		Stage primaryStage = new Stage();
+		primaryStage.setScene(new Scene(pane));
+		primaryStage.show();
+		
+		//Reads the log file
+		BufferedReader br = new BufferedReader(new FileReader("LogFile.txt"));
+				
+		String line = br.readLine();
+		//add in estimation values
+		while (line != null) {
+			display.appendText(line + '\n');
+			//append historical estimations
+			display.appendText("Projected Estimate: " + estimate + ", ");
+			line = br.readLine();
+		}
+		//closes file stream
+		br.close();
+		
+		display.textProperty().addListener((observable, oldValue, newLog) -> {
+		try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("newLog.txt"));
+            bw.write(newLog);
+            bw.flush();
+            bw.close();
+        } catch (IOException e4) {
+            e4.printStackTrace();
+        }
+		 });
+	}
+
+	//delete data
+	public void deleteButtonOnAction(ActionEvent e)
+	{
+		resetAttributeTextField();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("PlanningPokerLog.txt"));
+			String ln = br.readLine();
+			StringBuffer updateFile = new StringBuffer();
+			//reads from all the user stories, except the most recent
+			for(int i = 0; i < logCount() - 1; i++)
+			{
+				updateFile.append(ln + "\n");
+				ln = br.readLine();
+			}
+            br.close();
+			//rewriting, not appending
+            //copy all user stories except the last one, back into the log
+			FileWriter fw = new FileWriter("PlanningPokerLog.txt", false); 
+			fw.write(updateFile.toString());
+			
+			//close stream 
+			fw.close();
+		}
+		catch (IOException e2)
+		{
+			e2.printStackTrace();
+		}
+		
+	}
+	//update data
 	public void updateLogButtonOnAction(ActionEvent e) {
 		
 		try {
@@ -153,6 +278,7 @@ public class Planningpoker extends Main{
 			+ ", so that " + so.getText() + "; " + getKeyword() + "; " + adjustTextField.getText() + "; " + estimateLabel.getText() +  "\n");
 			
 			lg.close();
+			attributeSaveTextField.setStyle("-fx-text-fill: green; -fx-font-size: 12px;");
 			
 		} catch (IOException e1) {
             e1.printStackTrace();
@@ -160,6 +286,5 @@ public class Planningpoker extends Main{
 		
 		
 	}
-	
 	
 }
