@@ -1,17 +1,13 @@
 package application;
 
-import java.time.LocalTime;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -19,9 +15,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.scene.control.DatePicker;
 
 
@@ -33,13 +26,14 @@ public class LogEditor extends Main {
 	ObservableList<String> logList;
 	ObservableList<String> ecAspectList;
 	
+	
+	///Buttons and labels from FXML scenebuilder
 	@FXML
 	public Label aspectLabel;
 	@FXML
 	public Label numberOfLogLabel;
 	@FXML
 	public Label updatedEntryLabel;
-	
 	@FXML
 	public ChoiceBox<String> projectBox;
 	@FXML
@@ -67,9 +61,9 @@ public class LogEditor extends Main {
 	@FXML
 	public Button consoleButton;
 	
-	private String username;
+	private String username; //username
 	private String currentLog; //log that is being edited
-	private String tempLog;
+	private String tempLog; //modified current log for accessibility
 	
 	@FXML
 	public void initialize() {
@@ -126,7 +120,7 @@ public class LogEditor extends Main {
 				BufferedReader br = new BufferedReader(fr); //buffered reader
 				String line; //string to read the line
 				
-				//loops throught the file until it hits the end
+				//loops through the file until it hits the end
 				while((line = br.readLine()) != null) {
 					//if the log that the reader is on contains the correct project, it adds it to the Log list choice box
 					if(line.contains(projectBox.getSelectionModel().getSelectedItem())) {
@@ -162,6 +156,16 @@ public class LogEditor extends Main {
             editAlert.showAndWait();
             
 		}else {
+			//fills text boxes with log information once selected
+			String stringToBeParsed = selectLogBox.getSelectionModel().getSelectedItem();
+			String[] parsedArray = stringToBeParsed.split(": |->|;");
+			
+			startTimeTextBox.setText(parsedArray[1]);
+			stopTimeTextBox.setText(parsedArray[2]);
+			lifeCycleBox.setValue(parsedArray[4]);
+			effortCategoryBox.getSelectionModel().select(parsedArray[5]);
+			effortCategoryAspectBox.setValue(parsedArray[6]);
+			//writes the accesibiliy info to file so when other user read, they cannot access
 			try {
 				this.tempLog = currentLog;
 				
@@ -226,6 +230,23 @@ public class LogEditor extends Main {
 	public void updateButtonOnAction(ActionEvent e) {
 		//if the log choice box is not null then the method executes
 		if(selectLogBox.getSelectionModel().getSelectedItem() != null) {
+			
+			//issues an alert if there are empty fields
+			if(((startTimeTextBox.getText() == null)
+					||(stopTimeTextBox.getText() == null)
+					||(lifeCycleBox.getSelectionModel().getSelectedItem() == null)
+					||(effortCategoryBox.getSelectionModel().getSelectedItem() == (null))
+					||(effortCategoryAspectBox.getSelectionModel().getSelectedItem() == (null)))) {
+				
+				Alert updateAlertEmpty = new Alert(AlertType.WARNING);
+				updateAlertEmpty.setTitle("Empty Field");
+				updateAlertEmpty.setHeaderText("System cannot update as there is an empty field");;
+	            
+	            updateAlertEmpty.showAndWait().get();
+				
+	            return;
+			}
+			
 			try {
 				//Reads the log file
 				FileReader fr = new FileReader("LogFile.txt");
@@ -251,7 +272,6 @@ public class LogEditor extends Main {
 								+ effortCategoryAspectBox.getSelectionModel().getSelectedItem() + ";"
 								+ "Accessible:Yes";
 						newFileString.append(updatedLog + "\n");
-						currentLog = updatedLog;
 							
 					}else {
 						newFileString.append(line + "\n");
@@ -273,6 +293,13 @@ public class LogEditor extends Main {
 				
 			}
 			projectBoxOnAction(); //resets the log selection box
+		} else {
+			//issues an alert if no log is selected
+			Alert updateAlert = new Alert(AlertType.WARNING);
+			updateAlert.setTitle("No Log Selected");
+			updateAlert.setHeaderText("System cannot update as no log has been selected");;
+            
+            updateAlert.showAndWait().get();
 		}
 	}
 	
@@ -319,14 +346,23 @@ public class LogEditor extends Main {
 					}
 					
 					projectBoxOnAction(); //resets the log selection box
+				}else {
+					Alert deleteAlert = new Alert(AlertType.WARNING);
+					deleteAlert.setTitle("No Log Selected");
+					deleteAlert.setHeaderText("System cannot delete as no log has been selected");;
+		            
+		            deleteAlert.showAndWait().get();
 				}
 	}
 	
 	//exits the editor
 	//issues warning if there are boxes that are not empty
 	public void consoleButtonOnAction(ActionEvent e) {
-		if(!((startTimeTextBox.getText().equals(""))
-				&&(stopTimeTextBox.getText().equals(""))
+		
+		
+		
+		if(!((startTimeTextBox.getText()==null)
+				&&(stopTimeTextBox.getText()==null)
 				&&(dateBox.getPromptText() == null)
 				&&(lifeCycleBox.getSelectionModel().getSelectedItem() == null)
 				&&(effortCategoryBox.getSelectionModel().getSelectedItem() == null)
@@ -389,12 +425,122 @@ public class LogEditor extends Main {
 
 	}
 	
-	public void clearLogButtonOnAction(ActionEvent e) {
-		
+	//clears out all the text fields
+	public void clearLogButtonOnAction() {
+		startTimeTextBox.setText(null);
+		stopTimeTextBox.setText(null);
+		dateBox.setValue(null);
+		effortCategoryBox.setValue(null);
+		effortCategoryAspectBox.setValue(null);
+		lifeCycleBox.setValue(null);
 	}
 	
+	//sets the username
 	public void setUserName(String newUserName) {
 		this.username = newUserName;
+	}
+	
+	//splits a log into 2 equals halves and writes them to file
+	public void splitButtonOnAction() {
+		
+		//first half calculates the midpoint time
+		String stringToBeParsed = selectLogBox.getSelectionModel().getSelectedItem();
+		String[] parsedArray = stringToBeParsed.split(": |->|;");
+		String startTime = parsedArray[1];
+		String stopTime = parsedArray[2];
+		
+		String[] startTimeArray = startTime.split(":");
+		String[] stopTimeArray = stopTime.split(":");
+		
+		int hours, minutes;
+		double seconds;
+		boolean overTwelve = false;
+		
+		seconds = (Double.parseDouble(startTimeArray[2]) + Double.parseDouble(stopTimeArray[2]))/2;
+		minutes = Integer.parseInt(startTimeArray[1]) + Integer.parseInt(stopTimeArray[1]);
+		
+		if(minutes%2 == 1) {
+			seconds += 30;
+			
+			if (seconds >= 60) {
+				seconds -= 60;
+				minutes++;
+			}
+		}
+		
+		minutes /= 2;
+		
+		if(Integer.parseInt(startTimeArray[0]) > Integer.parseInt(stopTimeArray[0])) {
+			overTwelve = true;
+		}
+		
+		hours = Integer.parseInt(startTimeArray[0]) + Integer.parseInt(stopTimeArray[0]);
+		
+		if(hours%2 == 1) {
+			minutes += 30;
+			
+			if (minutes >= 60) {
+				minutes -= 60;
+				hours++;
+			}
+		}
+		
+		if(overTwelve) {
+			hours %= 12;
+		}else {
+			hours /= 2;
+		}
+		
+		String midPointTime = hours + ":" + minutes + ":" + seconds;
+		
+		//new logs created
+		String firstHalfLog = selectLogBox.getSelectionModel().getSelectedItem().replace(stopTime,midPointTime);
+		String secondHalfLog = selectLogBox.getSelectionModel().getSelectedItem().replace(startTime,midPointTime);
+		firstHalfLog = firstHalfLog.replace("Accessible:No","Accessible:Yes");
+		secondHalfLog = secondHalfLog.replace("Accessible:No","Accessible:Yes");
+		
+		//writes to file
+		try {
+			//Reads the log file
+			FileReader fr = new FileReader("LogFile.txt");
+			BufferedReader br = new BufferedReader(fr);
+			
+			//string that stores the new file
+			StringBuffer newFileString = new StringBuffer();
+			
+			String line = br.readLine(); //current line in the file
+			
+			//loops till the end of the file
+			while (line!=null) {
+				//checks to see if the current line is the same as the one selected in the box
+				//if it is not the same, then the file string buffer storing the new file appends the next line in the file
+				//if it is, then the line is replaced by the new 2 logs
+				if(line.equals(selectLogBox.getSelectionModel().getSelectedItem())){
+					newFileString.append(firstHalfLog + "\n" + secondHalfLog + "\n");
+						
+				}else {
+					newFileString.append(line + "\n");
+				}
+				
+				line = br.readLine(); //next line
+			}
+			
+			//closes file stream
+			br.close();
+			fr.close();
+			
+			//write file stream
+			FileWriter fw = new FileWriter("LogFile.txt",false);
+			fw.write(newFileString.toString()); //replaces the current file with the new one
+			
+			fw.close(); //closes file stream
+		}catch(Exception r) {
+			
+		}
+		
+		clearLogButtonOnAction();
+		projectBoxOnAction();
+		
 	}
 	
 }

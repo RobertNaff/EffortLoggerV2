@@ -26,7 +26,7 @@
       <Label fx:id="deleteLogLabel" layoutX="23.0" layoutY="365.0" text="3.b. Delete the Current Effort Log Entry" />
       <Label fx:id="splitLogLabel" layoutX="23.0" layoutY="408.0" text="3.c. Split this Current Effort Log Entry into two entries" />
       <Label fx:id="logConsoleLabel" layoutX="369.0" layoutY="408.0" text="4. Proceed to the Effort Log Console" />
-      <Button fx:id="clearLogButton" layoutX="413.0" layoutY="59.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="171.0" text="Clear This Effort Log" />
+      <Button fx:id="clearLogButton" layoutX="413.0" layoutY="59.0" mnemonicParsing="false" onAction="#clearLogButtonOnAction" prefHeight="25.0" prefWidth="171.0" text="Clear This Effort Log" />
       <Label fx:id="numberOfLogLabel" layoutX="51.0" layoutY="84.0" text=" " />
       <ChoiceBox fx:id="selectLogBox" onAction="#selectLogBoxOnAction" layoutX="49.0" layoutY="119.0" prefHeight="25.0" prefWidth="535.0" />
       <ChoiceBox fx:id="lifeCycleBox" layoutX="49.0" layoutY="239.0" prefHeight="25.0" prefWidth="281.0" />
@@ -35,7 +35,7 @@
       <Button fx:id="deleteButton" layoutX="48.0" layoutY="382.0" mnemonicParsing="false" onAction="#deleteButtonOnAction" prefHeight="25.0" prefWidth="150.0" text="Delete This Entry" />
       <Button fx:id="updateButton" layoutX="315.0" layoutY="327.0" mnemonicParsing="false" onAction="#updateButtonOnAction" prefHeight="25.0" prefWidth="150.0" text="Update This Entry" />
       <Label fx:id="updatedEntryLabel" layoutX="51.0" layoutY="331.0" text=" " />
-      <Button fx:id="splitButton" layoutX="48.0" layoutY="425.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="205.0" text="Split This Entry into Two Entries" />
+      <Button fx:id="splitButton" layoutX="48.0" layoutY="425.0" mnemonicParsing="false" onAction="#splitButtonOnAction" prefHeight="25.0" prefWidth="205.0" text="Split This Entry into Two Entries" />
       <Button fx:id="consoleButton" layoutX="368.0" layoutY="425.0" mnemonicParsing="false" onAction="#consoleButtonOnAction" prefHeight="25.0" prefWidth="213.0" text="Proceed to the Effort Log Console" />
       <Label fx:id="dateFormatLabel" layoutX="137.0" layoutY="195.0" />
       <Label fx:id="timeFormatLabel1" layoutX="340.0" layoutY="195.0" text="hh:mm:ss" />
