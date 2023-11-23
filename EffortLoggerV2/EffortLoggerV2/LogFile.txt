@@ -1,5 +1,0 @@
-Example's Log: 16:09:46.698223700->17:39:46.7089827296875;Development Project;Information Gathering;Deliverables;Outline;Accessible:Yes
-Example's Log: 17:39:46.7089827296875->19:9:46.719741759375;Development Project;Information Gathering;Deliverables;Outline;Accessible:Yes
-Welcome to Logger Home,'s Log: 18:25:48.711716200->18:25:49.488888;Business Project;Information Understanding;Interruptions;Visitor;Accessible:Yes
-Example's Log: ->;Business Project;null;null;null;Accessible:YesExample's Log: null->null;Business Project;null;null;null;Accessible:Yes
-Welcome to Logger Home,'s Log: 22:17:30.850552100->22:17:32.853051500;null;null;null;null;;Accessible:Yes

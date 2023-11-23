@@ -232,19 +232,19 @@ public class LogEditor extends Main {
 		if(selectLogBox.getSelectionModel().getSelectedItem() != null) {
 			
 			//issues an alert if there are empty fields
-			if(((startTimeTextBox.getText()==null)
-					||(stopTimeTextBox.getText()==null)
-					||(dateBox.getPromptText() == null)
+			if(((startTimeTextBox.getText() == null)
+					||(stopTimeTextBox.getText() == null)
 					||(lifeCycleBox.getSelectionModel().getSelectedItem() == null)
-					||(effortCategoryBox.getSelectionModel().getSelectedItem() == null)
-					||(effortCategoryAspectBox.getSelectionModel().getSelectedItem() == null))) {
+					||(effortCategoryBox.getSelectionModel().getSelectedItem() == (null))
+					||(effortCategoryAspectBox.getSelectionModel().getSelectedItem() == (null)))) {
 				
 				Alert updateAlertEmpty = new Alert(AlertType.WARNING);
-				updateAlertEmpty.setTitle("No Log Selected");
+				updateAlertEmpty.setTitle("Empty Field");
 				updateAlertEmpty.setHeaderText("System cannot update as there is an empty field");;
 	            
 	            updateAlertEmpty.showAndWait().get();
 				
+	            return;
 			}
 			
 			try {

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 
-<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoggerConfig">
+<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoggerConfig">
    <children>
       <AnchorPane fx:id="scene2" prefHeight="402.0" prefWidth="599.0">
          <children>
@@ -29,9 +29,10 @@
             <Label fx:id="nameTag" layoutX="18.0" layoutY="56.0" prefHeight="25.0" prefWidth="253.0" text="Welcome to Logger Home," />
             <Button fx:id="logoutbutton" layoutX="497.0" layoutY="359.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
             <Button fx:id="logEditorButton" layoutX="19.0" layoutY="359.0" mnemonicParsing="false" onAction="#logEditorButtonOnAction" prefHeight="25.0" prefWidth="141.0" text="Effort Log Editor" />
-             <Button fx:id="planningpokerButton" layoutX="329.0" layoutY="359.0" mnemonicParsing="false" onAction="#planningpokeraction" prefHeight="26.0" prefWidth="124.0" text="Planning Poker" />
+             <Button fx:id="planningpokerButton" layoutX="343.0" layoutY="359.0" mnemonicParsing="false" onAction="#planningpokeraction" prefHeight="26.0" prefWidth="124.0" text="Planning Poker" />
             <Label layoutX="397.0" layoutY="221.0" prefHeight="17.0" prefWidth="96.0" text="Story Points:" />
             <TextField fx:id="storyPointsTextField" layoutX="397.0" layoutY="245.0" promptText="Assigned story points" />
+            <Button fx:id="defectConsoleButton" layoutX="190.0" layoutY="359.0" mnemonicParsing="false" onAction="#defectConsoleButtonOnAction" prefHeight="25.0" prefWidth="124.0" text="Defect Console" />
          </children>
       </AnchorPane>
    </children>

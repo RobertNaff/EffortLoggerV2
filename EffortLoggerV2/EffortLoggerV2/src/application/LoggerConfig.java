@@ -57,6 +57,8 @@ public class LoggerConfig extends Main{
 	@FXML
 	public Button planningpokerButton;
 	@FXML
+	public Button defectConsoleButton;
+	@FXML
 	private TextField storyPointsTextField;
 	
 	//Clock variables
@@ -133,6 +135,11 @@ public class LoggerConfig extends Main{
 	//when the "Effort Log Editor" button is pressed, opens a new tab to the log editor window
 	public void logEditorButtonOnAction(ActionEvent e) {
 		logEditorInterface();
+	}
+	
+	//when the "defect Console" button is hit, it calls the method from main that opens the defect console
+	public void defectConsoleButtonOnAction() {
+		defectConsoleInterface();
 	}
 
 	//when the "Planning poker" button is pressed, opens planning poker window
