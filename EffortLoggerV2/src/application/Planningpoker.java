@@ -152,6 +152,21 @@ public class Planningpoker extends Main{
             e1.printStackTrace();
         }
 		 });
+
+		primaryStage.setOnCloseRequest(event -> {
+            event.consume();
+          //alert to user 
+    		Alert saveAlert = new Alert(AlertType.CONFIRMATION);
+    		saveAlert.setTitle("Leaving the page?");
+    		saveAlert.setHeaderText("Finish the modification?");
+            saveAlert.setContentText("Save before exiting");
+            
+            if(saveAlert.showAndWait().get() == ButtonType.OK){
+            	System.out.println("You modified and data already have been saved");
+            	tarea.getScene().getWindow().hide();
+            }
+        });
+		
 	}
 	
 	public void requestButtonOnAction(ActionEvent e) {
