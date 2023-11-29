@@ -2,6 +2,9 @@
 package application;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,6 +28,7 @@ public class LoggerConfig extends Main{
 	ObservableList<String> projectList = FXCollections.observableArrayList("Business Project", "Development Project");
 	ObservableList<String> lcsList = FXCollections.observableArrayList("Planning", "Information Gathering", "Information Understanding", "Verifying", "Outlining", "Drafting", "Finalizing", "Team Meeting", "Coach Meeting", "Stakeholder Meeting");
 	ObservableList<String> ecList = FXCollections.observableArrayList("Plans", "Deliverables", "Interruptions", "Defects", "Others");
+	ObservableList<String> defectList;
 	ObservableList<String> ecAspectList;
 	//
 	
@@ -70,10 +74,11 @@ public class LoggerConfig extends Main{
 	//Initialize function that sets created list into respected Choicebox
 	//
 	@FXML
-	private void initialize(){
+	private void initialize(){		
 		projectBox.setItems(projectList);
 		lcsBox.setItems(lcsList);
 		ecBox.setItems(ecList);
+		defectList = FXCollections.observableArrayList();
 	}
 	//
 	
@@ -110,7 +115,7 @@ public class LoggerConfig extends Main{
 			break;
 		case "Defects":
 			aspectLabel.setText("Defect");
-			ecAspectList=FXCollections.observableArrayList("-Defect Information-");
+			ecAspectList = defectList;
 			ecAspectBox.setItems(ecAspectList);
 			break;
 		case "Others":
@@ -121,6 +126,32 @@ public class LoggerConfig extends Main{
 		}
 	}
 	//
+	
+	public void projectBoxOnAction() {
+		defectList.clear();
+		
+		if(projectBox.getSelectionModel().getSelectedItem().equals("")) {
+			return;
+		}else {
+			try {
+				FileReader fr = new FileReader("DefectFile.txt"); //file stream
+				BufferedReader br = new BufferedReader(fr); //buffered reader
+				String line; //string to read the line
+				
+				//loops through the file until it hits the end
+				while((line = br.readLine()) != null) {
+					//if the defect that the reader is on contains the correct project, it adds it to the defect list choice box
+					if(line.contains(projectBox.getSelectionModel().getSelectedItem())) {
+						defectList.add(line);
+					}
+				}
+				fr.close(); //closes file stream
+			}catch(Exception r){
+				
+			}
+			
+		}
+	}
 	
 	//When "Start an Activity" is clicked, record present time
 	//

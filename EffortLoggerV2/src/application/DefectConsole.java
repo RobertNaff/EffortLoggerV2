@@ -67,7 +67,7 @@ public class DefectConsole extends Main {
 	}
 	
 	//called upon choosing an option in the projects choice box
-	//loads the list of defects the user can chooose from
+	//loads the list of defects the user can choose from
 	public void projectBoxOnAction() {
 		defectList.clear(); //clears it upon every activation
 		
@@ -121,7 +121,8 @@ public class DefectConsole extends Main {
 				+ ";" + stepInjectBox.getSelectionModel().getSelectedItem()
 				+ ";" + stepRemoveBox.getSelectionModel().getSelectedItem()
 				+ ";" + defectCategoryBox.getSelectionModel().getSelectedItem()
-				+ ";" + fixBox.getSelectionModel().getSelectedItem() + "\n";
+				+ ";" + fixBox.getSelectionModel().getSelectedItem() 
+				+ ";" + "Open" + "\n";
 		try {
 			//Reads the defect file
 			FileReader fr = new FileReader("DefectFile.txt");
@@ -208,11 +209,91 @@ public class DefectConsole extends Main {
 	
 	//changes the status of a defect from open to closed
 	public void closeDefectButtonOnAction() {
+		boolean updated = false; //determines if a line has been updated or not
+		
+		try {
+			//Reads the defect file
+			FileReader fr = new FileReader("DefectFile.txt");
+			BufferedReader br = new BufferedReader(fr);
+			
+			//string that stores the new file
+			StringBuffer newFileString = new StringBuffer();
+			
+			String line = br.readLine(); //current line in the file
+			
+			//loops till the end of the file
+			while (line!=null) {
+				//replaces the open status with closed
+				if(line.equals(defectBox.getSelectionModel().getSelectedItem()) && !updated){
+					updated = true;
+					String updatedDefect = defectBox.getSelectionModel().getSelectedItem().replace("Open", "Closed");
+					newFileString.append(updatedDefect + "\n");
+						
+				}else {
+					newFileString.append(line + "\n");
+				}
+				
+				line = br.readLine(); //next line
+			}
+			
+			//closes file stream
+			br.close();
+			fr.close();
+			
+			//write file stream
+			FileWriter fw = new FileWriter("DefectFile.txt",false);
+			fw.write(newFileString.toString()); //replaces the current file with the new one
+			
+			fw.close(); //closes file stream
+		}catch(Exception r) {
+			
+		}
+		projectBoxOnAction();
 		
 	}
 	
+	//changes the status of a defect from closed to open
 	public void reopenButtonOnAction() {
+boolean updated = false; //determines if a line has been updated or not
 		
+		try {
+			//Reads the defect file
+			FileReader fr = new FileReader("DefectFile.txt");
+			BufferedReader br = new BufferedReader(fr);
+			
+			//string that stores the new file
+			StringBuffer newFileString = new StringBuffer();
+			
+			String line = br.readLine(); //current line in the file
+			
+			//loops till the end of the file
+			while (line!=null) {
+				//replaces the closed status with an open status
+				if(line.equals(defectBox.getSelectionModel().getSelectedItem()) && !updated){
+					updated = true;
+					String updatedDefect = defectBox.getSelectionModel().getSelectedItem().replace("Closed", "Open");
+					newFileString.append(updatedDefect + "\n");
+						
+				}else {
+					newFileString.append(line + "\n");
+				}
+				
+				line = br.readLine(); //next line
+			}
+			
+			//closes file stream
+			br.close();
+			fr.close();
+			
+			//write file stream
+			FileWriter fw = new FileWriter("DefectFile.txt",false);
+			fw.write(newFileString.toString()); //replaces the current file with the new one
+			
+			fw.close(); //closes file stream
+		}catch(Exception r) {
+			
+		}
+		projectBoxOnAction();
 	}
 	
 	//called upon clicking the create new defect buton
@@ -220,7 +301,7 @@ public class DefectConsole extends Main {
 	public void createButtonOnAction() {
 		try {
 			FileWriter fw = new FileWriter("DefectFile.txt",true);//writes to the Defect File, the 'true' means the new lines simply add on and do not replace
-			fw.write("- new defect -;" + projectBox.getSelectionModel().getSelectedItem() + ";;;;;\n"); //new defect format is written to the end of the file
+			fw.write("- new defect -;" + projectBox.getSelectionModel().getSelectedItem() + ";;;;;;\n"); //new defect format is written to the end of the file
 			fw.close(); //file stream is closed
 		}catch(Exception a){
 			
@@ -234,6 +315,5 @@ public class DefectConsole extends Main {
 	public void consoleButtonOnAction() {
 		consoleButton.getScene().getWindow().hide();
 	}
-	
 	
 }
