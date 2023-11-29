@@ -13,7 +13,10 @@ import javafx.scene.control.TextArea;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
@@ -153,7 +156,6 @@ public class Planningpoker extends Main{
         }
 		 });
 
-
 		primaryStage.setOnCloseRequest(event -> {
             event.consume();
           //alert to user 
@@ -167,6 +169,7 @@ public class Planningpoker extends Main{
             	tarea.getScene().getWindow().hide();
             }
         });
+		
 	}
 	
 	public void requestButtonOnAction(ActionEvent e) {
