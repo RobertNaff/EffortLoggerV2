@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="planpoker" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Planningpoker">
+   <children>
+      <Label layoutX="23.0" layoutY="43.0" text="1. Click the button to import the historical data." />
+      <Label layoutX="396.0" layoutY="51.0" text="2a. Clear the data" />
+      <Label layoutX="22.0" layoutY="93.0" text="2. Provide a name for the new project" />
+      <Label layoutX="23.0" layoutY="137.0" text="3. Provide the user story for the project" />
+      <Label layoutX="51.0" layoutY="162.0" text="As a " />
+      <TextField fx:id="want" layoutX="251.0" layoutY="159.0" prefHeight="26.0" prefWidth="117.0" />
+      <TextField fx:id="so" layoutX="427.0" layoutY="159.0" prefHeight="26.0" prefWidth="138.0" />
+      <Label fx:id="iwant" layoutX="201.0" layoutY="163.0" text=",I want" />
+      <Label layoutX="372.0" layoutY="163.0" text=", so that" />
+      <Label layoutX="53.0" layoutY="217.0" text="Keywords: " />
+      <Label layoutX="260.0" layoutY="214.0" text="Additional Notes: " />
+      <Label fx:id="aspectLabel" layoutX="226.0" layoutY="264.0" />
+      <Label layoutX="23.0" layoutY="339.0" text="6. Delete the data " />
+      <Label layoutX="23.0" layoutY="371.0" text="7. Display all the details about historical data project high or low estimate" />
+      <Button fx:id="clearButton" layoutX="396.0" layoutY="71.0" mnemonicParsing="false" onAction="#clearButtonOnAction" prefHeight="26.0" prefWidth="101.0" text="Clear data" />
+      <Label fx:id="numberOfLogLabel" layoutX="51.0" layoutY="84.0" text=" " />
+      <Button fx:id="deleteButton" layoutX="151.0" layoutY="335.0" mnemonicParsing="false" onAction="#deleteButtonOnAction" prefHeight="25.0" prefWidth="150.0" text="Delete Data" />
+      <Button fx:id="updateButton" layoutX="43.0" layoutY="266.0" mnemonicParsing="false" onAction="#updateLogButtonOnAction" prefHeight="26.0" prefWidth="138.0" text="Update This Entry" />
+      <Label fx:id="updatedEntryLabel" layoutX="51.0" layoutY="331.0" text=" " />
+      <Button fx:id="requestButton" layoutX="25.0" layoutY="425.0" mnemonicParsing="false" onAction="#requestButtonOnAction" prefHeight="26.0" prefWidth="117.0" text="Request  Estimate" />
+      <Button fx:id="backtoconsole" layoutX="382.0" layoutY="425.0" mnemonicParsing="false" onAction="#backtoconsoleaction" prefHeight="26.0" prefWidth="204.0" text="Proceed to the Effort Log Console" />
+      <Label fx:id="dateFormatLabel" layoutX="137.0" layoutY="195.0" />
+      <Label layoutX="52.0" layoutY="110.0" text="Project Name" />
+      <TextField fx:id="projectname" layoutX="145.0" layoutY="111.0" prefHeight="25.0" prefWidth="90.0" />
+      <TextField fx:id="as" layoutX="79.0" layoutY="159.0" prefHeight="26.0" prefWidth="117.0" />
+      <Label layoutX="22.0" layoutY="192.0" text="4. Provide a descriptive set of keywords." />
+      <TextField fx:id="keyword" layoutX="123.0" layoutY="211.0" prefHeight="26.0" prefWidth="117.0" />
+      <TextField fx:id="note" layoutX="374.0" layoutY="210.0" prefHeight="26.0" prefWidth="117.0" />
+      <Label layoutX="20.0" layoutY="242.0" text="5. Press the “Update the data” to save the data above" />
+      <TextField fx:id="attributeSaveTextField" layoutX="43.0" layoutY="299.0" prefHeight="26.0" prefWidth="225.0" text="These attributes have been saved" />
+      <Button fx:id="importdatabutton" layoutX="43.0" layoutY="58.0" mnemonicParsing="false" onAction="#importdataAction" prefHeight="26.0" prefWidth="101.0" text="Import data" />
+      <Label layoutX="25.0" layoutY="400.0" text="8. Request the estimate of story points" />
+      <Button fx:id="displayButton" layoutX="481.0" layoutY="366.0" mnemonicParsing="false" onAction="#displayButtonOnAction" prefHeight="26.0" prefWidth="101.0" text="Display data" />
+      <Label layoutX="257.0" layoutY="14.0" prefHeight="17.0" prefWidth="138.0" text="Planning Poker " textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="estimateLabel" layoutX="145.0" layoutY="430.0" prefHeight="17.0" prefWidth="82.0" text="Estimate: " textFill="RED" />
+      <Label layoutX="241.0" layoutY="400.0" prefHeight="17.0" prefWidth="82.0" text="9. Adjust(+/-):" />
+      <TextField fx:id="adjustTextField" layoutX="261.0" layoutY="426.0" prefHeight="25.0" prefWidth="43.0" />
+   </children>
+</AnchorPane>

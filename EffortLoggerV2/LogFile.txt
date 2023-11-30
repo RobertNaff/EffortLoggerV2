@@ -1,0 +1,2 @@
+Welcome to Logger Home,'s Log: 13:09:41.935276900->13:09:53.776583900;Business Project;Verifying;Deliverables;Detailed Design;6;Accessible:Yes
+Welcome to Logger Home,'s Log: 13:09:57.828805400->13:10:16.813832700;Development Project;Team Meeting;Plans;Project Plan;3;Accessible:Yes
